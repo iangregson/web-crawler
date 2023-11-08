@@ -1,0 +1,23 @@
+version: '3'
+name: spider-monzo
+services:
+  app:
+    image: kafka/spider-monzo:${TAG:-latest}
+    container_name: spider-monzo
+    network_mode: host
+    command: bun run main.ts
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      TOKEN: a-token-here
+  test:
+    image: kafka/spider-monzo:${TAG:-latest}
+    container_name: spider-monzo
+    network_mode: host
+    command: bun test --coverage
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      TOKEN: a-token-here
